@@ -1,0 +1,155 @@
+[
+  {
+    "listMain": {
+      "displayName": "ToDoTask",
+      "columns": [
+        {
+          "description": "start date",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Start Date",
+          "dateTime": {
+            "displayAs": "default",
+            "format": "date"
+          }
+        },
+        {
+          "description": "End date",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "End Date",
+          "dateTime": {
+            "displayAs": "default",
+            "format": "date"
+          }
+        },
+        {
+          "description": "Actual hours",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Actual Hours",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0,
+            "maxLength": 55
+          }
+        },
+        {
+          "description": "Check paly pause",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "IsPlay",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0,
+            "maxLength": 55
+          }
+        },
+        {
+          "description": "Descriptions of task",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Descriptions",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0
+          }
+        },
+        {
+          "description": "Reviwer mail ",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Reviewer Mail",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0,
+            "maxLength": 255
+          }
+        },
+        {
+          "description": "Reviewer Display Name ",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Reviewer Display Name",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0,
+            "maxLength": 255
+          }
+        },
+        {
+          "description": "Actual Start Date",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Actual Start Date",
+          "dateTime": {
+            "displayAs": "default",
+            "format": "date"
+          }
+        },
+        {
+          "description": "Reviewer Id",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Reviewer Id",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0,
+            "maxLength": 255
+          }
+        }
+      ],
+      "list": {
+        "template": "genericList"
+      }
+    },
+    "listSub": {
+      "displayName": "To Do Task Entry",
+      "columns": [
+        {
+          "description": "Entry and exixt of task",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Entry Exit Time",
+          "required": true,
+          "dateTime": {
+            "displayAs": "default",
+            "format": "date"
+          }
+        },
+        {
+          "description": "Id of Task",
+          "enforceUniqueValues": false,
+          "hidden": false,
+          "indexed": false,
+          "name": "Id",
+          "text": {
+            "allowMultipleLines": false,
+            "appendChangesToExistingText": false,
+            "linesForEditing": 0,
+            "maxLength": 55
+          }
+        }
+      ],
+      "list": {
+        "template": "genericList"
+      }
+    }
+  }
+]

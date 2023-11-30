@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    width: fit-content;
+    height: fit-content;
+  }
+}
+.textValue{
+  background-color: #1aebff;
+  border-radius: 4px;
+  color: blueviolet;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* .pagination{
+  display: flex;
+  
+  justify-content:"space-evenly"
+} */
+.PageIndex > span{
+  padding: 5px 10px;
+  
+  /* border: 1px solid grey; */
+  cursor: pointer;
+}
+.PageIndex > span:hover{
+  background-color:#1aebff;
+}
+
+.selectedPage{
+  background-color:#5b5fc7 
+}
+/* .cardCompo:hover{
+  background-color: #1aebff;
+} */
+/* .card{
+  width: 100%;
+  max-width: 100%;
+  height: fit-content;
+  margin-bottom: 25px,
+
+} */
+.cardCompo:hover{
+  background-color: 
+  #cfe4fa;
+}
+.f1qga665 {
+  padding-bottom: 0 !important;
+}
+.CardProfile{
+  background: radial-gradient(44.14% 315.57% at 17.92% 34.85%,#009dd2 0,#304899 84.93%);
+
+}
+
