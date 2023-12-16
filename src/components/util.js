@@ -274,6 +274,45 @@ const CallApiItems = async (teamsUserCredential, sendActivity) => {
     throw new Error(funcErrorMsg);
   }
 };
+const callProfileApi = async (teamsUserCredential) => {
+  // console.log("We are in call Notify Api", sendActivity);
+  if (!teamsUserCredential) {
+    throw new Error("TeamsFx SDK is not initialized.");
+  }
+  try {
+    const apiBaseUrl = config.apiEndpoint + "/api/";
+    // createApiClient(...) creates an Axios instance which uses BearerTokenAuthProvider to inject token to request header
+    const apiClient = createApiClient(
+      apiBaseUrl,
+      new BearerTokenAuthProvider(
+        async () => (await teamsUserCredential.getToken("")).token
+      )
+    );
+    const response = await apiClient.get("userProfile");
+    console.log("This is a response in a data in util ", response);
+
+    return response.data;
+  } catch (err) {
+    let funcErrorMsg = "";
+    if (err?.response?.status === 404) {
+      funcErrorMsg = `There may be a problem with the deployment of Azure Function App, please deploy Azure Function (Run command palette "Teams: Deploy") first before running this App`;
+    } else if (err.message === "Network Error") {
+      funcErrorMsg =
+        "Cannot call Azure Function due to network error, please check your network connection status and ";
+      if (err.config.url.indexOf("localhost") >= 0) {
+        funcErrorMsg += `make sure to start Azure Function locally (Run "npm run start" command inside api folder from terminal) first before running this App`;
+      } else {
+        funcErrorMsg += `make sure to provision and deploy Azure Function (Run command palette "Teams: Provision" and "Teams: Deploy") first before running this App`;
+      }
+    } else {
+      funcErrorMsg = err.message;
+      if (err.response?.data?.error) {
+        funcErrorMsg += ": " + err.response.data.error;
+      }
+    }
+    throw new Error(funcErrorMsg);
+  }
+};
 // const GetUser = async (teamsUserCredential, sendActivity) => {
 //   try {
 //     const functionRes = await CallUserLookupApi(
@@ -348,6 +387,16 @@ const GetSite = async (teamsUserCredential, sendActivity) => {
     }
   }
 };
+const getprofile = async (teamsUserCredential) => {
+  try {
+    const functionRes = await callProfileApi(teamsUserCredential);
+    console.log("login user pofile _____", functionRes);
+    return functionRes;
+  } catch (error) {
+    if (error.message.includes("The application may not be authorized.")) {
+    }
+  }
+};
 // async function callFunction(teamsUserCredential) {
 //   // const tokenAccess = (await teamsUserCredential.getToken(""))
 //   // console.log("e trying to fin Access in tab", tokenAccess)
@@ -390,4 +439,4 @@ const GetSite = async (teamsUserCredential, sendActivity) => {
 //     throw new Error(funcErrorMsg);
 //   }
 // }
-export { Update, addTasklist, playPause, Notifiy, GetSite, GetItems };
+export { Update, addTasklist, playPause, Notifiy, GetSite, GetItems,getprofile };

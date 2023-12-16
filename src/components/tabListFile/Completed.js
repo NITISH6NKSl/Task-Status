@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 // import { TeamsFxContext } from "../Context";
 import { Button } from "@fluentui/react-components";
+import Pagination from "./Pagination";
 
 import CardComponent from "./Card";
 
 const Completed = (props) => {
   const [pages, setPages] = useState(1);
   const [selectedData, setselectedData] = useState([]);
+  const [numberOfTask,setNumberOfTask]=useState(5)
   // const { data, loginuser } = useContext(TeamsFxContext);
   // console.log("Data in Completed", data, teamsUserCredential);
 
@@ -40,7 +42,7 @@ const Completed = (props) => {
 
   return (
     <div>
-      {selectedData?.slice(pages * 5 - 5, pages * 5).map((element) => {
+      {selectedData?.slice(pages * numberOfTask - numberOfTask, pages * numberOfTask).map((element) => {
         // console.log("loginUser in element", loginuser);
         // console.log("loging forEach");
 
@@ -50,7 +52,7 @@ const Completed = (props) => {
           </div>
         );
       })}
-      {selectedData?.length > 0 && Math.ceil(selectedData?.length) >= 5 && (
+      {/* {selectedData?.length > 0 && Math.ceil(selectedData?.length) >= 5 && (
         <div
           className="pagination"
           style={{ display: "flex", justifyContent: "space-evenly" }}
@@ -87,7 +89,8 @@ const Completed = (props) => {
             Next
           </Button>
         </div>
-      )}
+      )} */}
+      <Pagination selectedData={selectedData} pages={pages}  setPages={setPages} numberOfTask={numberOfTask} setNumberOfTask={setNumberOfTask} />
     </div>
   );
 };

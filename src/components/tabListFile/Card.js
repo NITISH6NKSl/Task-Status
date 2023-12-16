@@ -20,11 +20,16 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
+  Text,
+  Divider
 } from "@fluentui/react-components";
 import {
   PlayCircle24Regular,
   RecordStop24Regular,
   TextboxMore24Regular,
+  TextMore24Regular,
+  AppsListDetail24Regular,
+  MoreHorizontal24Filled
 } from "@fluentui/react-icons";
 import {
   Card,
@@ -45,10 +50,15 @@ const useStyles = makeStyles({
 
   title: {
     ...shorthands.margin(0, 0, "8px"),
+   
   },
 
   description: {
     ...shorthands.margin(0, 0, "10px"),
+    
+  },
+  textColor:{
+    color:"white"
   },
 
   card: {
@@ -56,6 +66,11 @@ const useStyles = makeStyles({
     maxWidth: "100%",
     height: "fit-content",
     marginBottom: "25px",
+    backgroundColor:"transparent",
+  
+
+//     background: rgb(34,193,195);
+// background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
   },
   // cardHover:{
   //   backgroundColor:"red",
@@ -272,6 +287,7 @@ const CardComponent = (props) => {
       },
       saveToSentItems: "false",
     },
+    status:"Complete"
   };
   console.log("This is a data in card s", props.element);
 
@@ -436,49 +452,112 @@ const CardComponent = (props) => {
     default:
       break;
   }
-  
-
+  const trimDescription=(str, maxLen, separator = ' ')=>{
+      if (str.length <= maxLen) return str;
+      return str.substr(0, str.lastIndexOf(separator, maxLen));
+  }
   return (
     <div >
-      <Title3></Title3>
-      <div className="card">
-        <Card className={Styles.card}  >
+      <div className="cardCompo" >
+        <Card className={Styles.card} >
           <CardPreview></CardPreview>
           <div >
             <CardHeader
               header={
-                <Title3 className={Styles.title}>
+                <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",width:"100%", marginBottom:"5px"}}>
+                  <div>
+                  <Title3 className={Styles.title}>
                   {props?.element?.fields?.Title}
-                </Title3>
+                  </Title3>
+                  </div>
+                  <div style={{paddingRight:"11px",cursor:"pointer"}} >
+                      <Dialog modalType="alert">
+                        <DialogTrigger disableButtonEnhancement>
+                          <Tooltip     
+                                withArrow
+                                content="Details"
+                                relationship="label"
+                              >
+                                <AppsListDetail24Regular/>
+                              </Tooltip>
+                        </DialogTrigger>
+                        <DialogSurface  className="cardCompo">
+                          <DialogBody >
+                            <DialogTitle weight="bold" action={null}>
+                               {props?.element?.fields.Title}
+                               <Divider appearance="strong" ></Divider>
+                            </DialogTitle>
+                            
+                            
+                            <DialogContent>
+                            
+                            <div style={{display:"flex",flexDirection:"column",rowGap:"10px"}}>
+                            
+                                <Text weight="bold">Description: {trimDescription(props?.element?.fields?.Descriptions,50)}</Text>
+                                <Text weight="bold">
+                                  StartDate : {formateDate(props?.element.fields.StartDate)}
+                                </Text>
+                                <Text weight="bold">
+                                  EndDate : {formateDate(props?.element?.fields.EndDate)}
+                                </Text>
+                                <Text weight="bold">
+                                  Estimated Time : {props?.element?.fields.EstimatedHours}
+                                </Text>
+                                <Text weight="bold">
+                                  Reviwer : {props?.element?.fields.ReviewerDipalyName}
+                                </Text>
+                              </div>
+                            
+                            </DialogContent>
+                            <DialogActions>
+                              <DialogTrigger disableButtonEnhancement>
+                                <Button appearance="primary">Close</Button>
+                              </DialogTrigger>
+                            </DialogActions>
+                          </DialogBody>
+                        </DialogSurface>
+                      </Dialog>
+                                      
+                  </div>
+  
+                </div>
+                
               }
               description={
-                props?.element?.fields?.Descriptions ? (
-                  <Body1Strong>
-                    Description :{" "}
+                props?.element?.fields?.Descriptions ? 
+                 
+                      <Body1Strong className={Styles.description}>
+                    <div style={{display:"flex",flexDirection:"row"}}>
+                      <div> Description :{" "}</div>
+
                     {props?.element?.fields?.Descriptions.length > 50 ? (
+                      
                       <>
-                        {props?.element?.fields?.Descriptions.slice(0, 50)}
+                        <div>
+                          {trimDescription(props?.element?.fields?.Descriptions,50)}
+                        </div>
+                      <div>
                         <Dialog
                           className="btnDescription"
                           style={{ display: "flex" }}
                         >
                           <DialogTrigger disableButtonEnhancement>
-                            <span style={{ cursor: "pointer", margin: "4px" }}>
+                            <div style={{ cursor: "pointer", margin: "4px" }}>
                               {" "}
                               <Tooltip
                                 withArrow
                                 content={props?.element?.fields?.Descriptions}
                                 relationship="label"
                               >
-                                <TextboxMore24Regular />
+                                <MoreHorizontal24Filled />
                               </Tooltip>
-                            </span>
+                            </div>
                           </DialogTrigger>
-                          <DialogSurface>
+                          <DialogSurface className="cardCompo">
                             <DialogBody>
                               <DialogTitle>Task Description</DialogTitle>
                               <DialogContent>
-                                <p>{props?.element?.fields?.Descriptions}</p>
+                                <Text weight="bold" size={300}>{props?.element?.fields?.Descriptions}</Text>
                               </DialogContent>
                               <DialogActions>
                                 <DialogTrigger disableButtonEnhancement>
@@ -488,12 +567,16 @@ const CardComponent = (props) => {
                             </DialogBody>
                           </DialogSurface>
                         </Dialog>
-                      </>
+                        </div>
+                        </>
                     ) : (
                       props?.element?.fields?.Descriptions
                     )}
+                    </div>
                   </Body1Strong>
-                ) : null
+                  
+                      : null  
+                  
               }
             />
           </div>
@@ -557,23 +640,38 @@ const CardComponent = (props) => {
                         {isPlay &&
                           check.completeBtnVisbile &&
                           (isPlay === "Play" ? (
+                            <Tooltip
+                            withArrow
+                            content="Start"
+                            relationship="label"
+                            >
                             <PlayCircle24Regular
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: "pointer",}}
                               onClick={() => {
                                 setLoad(true);
                                 setNewPlay(true);
                               }}
                             />
+                            </Tooltip>
                           ) : (
+                            <Tooltip
+                            withArrow
+                            content="Stop"
+                            relationship="label"
+                            >
                             <RecordStop24Regular
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: "pointer",}}
                               onClick={() => {
                                 setLoad(true);
                                 setNewPlay(false);
                               }}
                             />
+                            </Tooltip>
                           ))}
                         {check.completeBtnVisbile && (
+                          <Tooltip  withArrow
+                          content="Complete Task"
+                          relationship="label">
                           <Button
                             disabled={isPlay === "Pause"}
                             appearance="primary"
@@ -582,6 +680,7 @@ const CardComponent = (props) => {
                           >
                             Completed
                           </Button>
+                          </Tooltip>
                         )}
                       </div>
                     </>
@@ -593,8 +692,7 @@ const CardComponent = (props) => {
           {check.setProgressBar && (
             <div className="progressBar">
               <Field
-                validationMessage=" Task ProgressBar"
-                validationState="none"
+                
               >
                 <ProgressBar
                   style={{ Color: "yellow" }}
@@ -603,6 +701,7 @@ const CardComponent = (props) => {
                   value={progreessValue}
                   color={ProgressColor()}
                 />
+                Task ProgressBar
               </Field>
             </div>
           )}

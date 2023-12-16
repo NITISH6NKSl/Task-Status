@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@fluentui/react-components";
 import CardComponent from "./Card";
+import Pagination from "./Pagination";
 
 const UpComing = (props) => {
   const [pages, setPages] = useState(1);
   const [selectedData, setselectedData] = useState([]);
+  const [numberOfTask,setNumberOfTask]=useState(5)
   useEffect(() => {
     setselectedData([]);
     props?.listData.forEach((element) => {
@@ -25,20 +27,20 @@ const UpComing = (props) => {
 
   // console.log("Loging Context in On GinG tab", loginuser.userPrincipalName);
   // console.log("This is a data in ongoing", data);
-  const selectPagehandler = (selectedpage) => {
-    if (
-      selectedpage >= 1 &&
-      selectedpage <= Math.ceil(selectedData.length / 5) &&
-      selectedpage !== pages
-    ) {
-      console.log("This is to console data in selectHandle", selectedData);
-      setPages(selectedpage);
-    }
-    console.log("this");
-  };
+  // const selectPagehandler = (selectedpage) => {
+  //   if (
+  //     selectedpage >= 1 &&
+  //     selectedpage <= Math.ceil(selectedData.length / 5) &&
+  //     selectedpage !== pages
+  //   ) {
+  //     console.log("This is to console data in selectHandle", selectedData);
+  //     setPages(selectedpage);
+  //   }
+  //   console.log("this");
+  // };
   return (
     <div>
-      {selectedData?.slice(pages * 5 - 5, pages * 5).map((element) => {
+      {selectedData?.slice(pages * numberOfTask - numberOfTask, pages * numberOfTask).map((element) => {
         // console.log("data in element", element);
         // console.log("loging forEach");
 
@@ -52,7 +54,7 @@ const UpComing = (props) => {
           </div>
         );
       })}
-      {selectedData?.length > 0 && Math.ceil(selectedData?.length) >= 5 && (
+      {/* {selectedData?.length > 0 && Math.ceil(selectedData?.length) >= 5 && (
         <div
           className="pagination"
           style={{ display: "flex", justifyContent: "space-evenly" }}
@@ -90,7 +92,8 @@ const UpComing = (props) => {
             Next
           </Button>
         </div>
-      )}
+      )} */}
+         <Pagination selectedData={selectedData} pages={pages}  setPages={setPages} numberOfTask={numberOfTask} setNumberOfTask={setNumberOfTask} />
     </div>
   );
 };

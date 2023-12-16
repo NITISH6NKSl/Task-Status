@@ -45,16 +45,28 @@ body {
 /* .cardCompo:hover{
   background-color: #1aebff;
 } */
-/* .card{
+.cardTask{
   width: 100%;
   max-width: 100%;
   height: fit-content;
   margin-bottom: 25px,
-
-} */
-.cardCompo:hover{
-  background-color: 
-  #cfe4fa;
+}
+.cardCompo{
+  
+  /* background: rgb(67,57,161);
+  background: radial-gradient(circle, rgba(67,57,161,1) 0%, rgba(238,174,198,1) 100%); */
+  /* background: rgb(238,174,198);
+background: radial-gradient(circle, rgba(238,174,198,1) 0%, rgba(67,57,161,1) 100%); */
+/* background: rgb(207,174,238);
+background: radial-gradient(circle, rgba(207,174,238,1) 0%, rgba(67,57,161,1) 100%); */
+/* background: linear-gradient(to right, #ff6666 0%, #990099 100%); */
+/* background: rgb(207,174,238);
+background: radial-gradient(circle, rgba(207,174,238,1) 0%, rgba(67,57,161,1) 100%); */
+/* background: rgb(100,85,233);
+background: linear-gradient(7deg, rgba(100,85,233,1) 0%, rgba(128,80,236,1) 62%, rgba(111,39,180,1) 100%); */
+/* background: rgb(63,94,251);
+background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%); */
+/* background-color: #5390d9; */
 }
 .f1qga665 {
   padding-bottom: 0 !important;
@@ -63,4 +75,27 @@ body {
   background: radial-gradient(44.14% 315.57% at 17.92% 34.85%,#009dd2 0,#304899 84.93%);
 
 }
+.dateBox{
+  background-color: lightgray;
+  width: 45px;
+  height:35px;
+  border: 1px solid grey;
+}
+.upComingHeadCard{
+  background: transparent;
+  width: 250px;
+  margin-right:"50px"
+}
+.fui-CardPreview{
+  margin: 0 !important;
+}
+.fui-CardHeader{
+  margin: 0 !important;
 
+}
+.fcvsdzp {
+  row-gap: 0 !important;
+}
+.f1exfvgq {
+  min-width: 1% !important;
+}

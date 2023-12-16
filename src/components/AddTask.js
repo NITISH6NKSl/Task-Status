@@ -21,7 +21,9 @@ import { addYears } from "@fluentui/react-calendar-compat";
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { useContext, useState } from "react";
 import { TeamsFxContext } from "./Context";
-import { addTasklist } from "./util";
+import { addTasklist,Notifiy } from "./util";
+import  config from "./sample/lib/config"
+
 
 const useStyles = makeStyles({
   content: {
@@ -43,7 +45,62 @@ const AddTask = (props) => {
   const [ReviewerEmail, setReviewerEmail] = useState();
   const [addTaskLoad, setAddTaskLoad] = useState(false);
   const [ReviewerUserId, setReviewerId] = useState("");
+
   const styles = useStyles();
+
+  const sendNotification = {
+    siteId: siteId,
+    reviewerUserId:ReviewerUserId ,
+    sendActivityNotification: {
+      topic: {
+        source: "text",
+        value: "Task Completed",
+        webUrl: `https://teams.microsoft.com/l/entity/${config.teamsAppId}/index`,
+      },
+      activityType: "taskAdded",
+      previewText: {
+        content: `You Are Added as Rewier for Task ${taskTitle} By ${props?.userName} `,
+      },
+      templateParameters: [
+        // {
+        //   name: "taskId",
+        //   value: (props?.element?.fields?.id).toString(),
+        // },
+        {
+          name: "taskName",
+          value: taskTitle.toString(),
+        },
+      ],
+    },
+    sendMail: {
+      message: {
+        subject: `${taskTitle} - Task Assined To You`,
+        body: {
+          contentType: "Text",
+          content: `${taskTitle} " Task is Added By " ${props?.userName}
+           Start Date: ${StartDate}
+           End Date: ${EndDate}
+           Estimated Hours: ${EstimatedHours}
+           `,
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address:ReviewerEmail,
+            },
+          },
+        ],
+        // ccRecipients: [
+        //   {
+        //     emailAddress: {
+        //       address: "danas@contoso.onmicrosoft.com",
+        //     },
+        //   },
+        // ],
+      },
+      saveToSentItems: "false",
+    },
+  };
   // Initialize teams app
   // let context;
   // app.initialize().then(async () => {
@@ -99,6 +156,7 @@ const AddTask = (props) => {
     // );
     await addTasklist(teamsUserCredential, obj);
     props?.setCallReload(true);
+    await Notifiy(teamsUserCredential,sendNotification)
   };
   const today = new Date();
   // const minDate = addMonths(today, new Date());
@@ -247,11 +305,11 @@ const AddTask = (props) => {
                       id={"Reviwer"}
                       aria-labelledby="Reviwer"
                       onOptionSelect={(e, data) => {
-                        console.log("loging for data in dropdown", data);
+                       
                         setReviewerEmail(data?.optionValue?.userPrincipalName);
                         setReviwerDisplayName(data?.optionText);
                         setReviewerId(data?.optionValue?.id);
-                        console.log("This is a data option value", e);
+                        
 
                         setButtonDisabled(false);
                       }}
