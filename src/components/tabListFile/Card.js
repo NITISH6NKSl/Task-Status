@@ -29,7 +29,8 @@ import {
   TextboxMore24Regular,
   TextMore24Regular,
   AppsListDetail24Regular,
-  MoreHorizontal24Filled
+  MoreHorizontal24Filled,
+  Info24Regular
 } from "@fluentui/react-icons";
 import {
   Card,
@@ -116,7 +117,7 @@ const CardComponent = (props) => {
     if (load) {
       handleToggelBtn(newPlay);
     }
-  }, [newPlay]);
+  },[newPlay]);
   useEffect(() => {
     if(props.tabName==="OnGoing"){
       // console.log("This is a site, id and all", siteId, listToDoId);
@@ -131,7 +132,7 @@ const CardComponent = (props) => {
       setLoader(false);
     }
    
-  }, [props.element]);
+  },[props.element]);
   const GetItemsData = async (teamsUserCredential, obj) => {
     const response = await GetItems(teamsUserCredential, obj);
     // console.log(
@@ -152,6 +153,7 @@ const CardComponent = (props) => {
       listTimeArrId.push(time?.fields?.id);
       return time.fields?.EntryExitTime;
     }
+    return null
   });
 
   // const CheckActualStart = () => {
@@ -470,7 +472,7 @@ const CardComponent = (props) => {
                   {props?.element?.fields?.Title}
                   </Title3>
                   </div>
-                  <div style={{paddingRight:"11px",cursor:"pointer"}} >
+                  <div style={{cursor:"pointer"}} >
                       <Dialog modalType="alert">
                         <DialogTrigger disableButtonEnhancement>
                           <Tooltip     
@@ -478,7 +480,7 @@ const CardComponent = (props) => {
                                 content="Details"
                                 relationship="label"
                               >
-                                <AppsListDetail24Regular/>
+                                <Info24Regular/>
                               </Tooltip>
                         </DialogTrigger>
                         <DialogSurface  className="cardCompo">
@@ -676,7 +678,7 @@ const CardComponent = (props) => {
                             disabled={isPlay === "Pause"}
                             appearance="primary"
                             onClick={handleCompleteBtn}
-                            style={{ marginLeft: "10px" }}
+                            style={{ marginLeft: "1vw" }}
                           >
                             Completed
                           </Button>

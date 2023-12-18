@@ -14,14 +14,13 @@ import {
   Routes,
 } from "react-router-dom";
 import { useTeamsUserCredential } from "@microsoft/teamsfx-react";
-import { app } from "@microsoft/teams-js";
+
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab1 from "./MainTab";
 import { TeamsFxContext } from "./Context";
 import config from "./sample/lib/config";
-import { GetSite } from "./util";
-import { useEffect,useState } from "react";
+
 
 
 

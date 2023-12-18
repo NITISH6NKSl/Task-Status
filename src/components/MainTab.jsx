@@ -124,14 +124,12 @@ const settingSlider = {
     if(teamsUserCredential){
       getProfileIN(teamsUserCredential)
     }
-  
    
   }, [teamsUserCredential])
- const getProfileIN=async(teamsUserCredential)=>{
-  const tempPresence= await getprofile(teamsUserCredential)
-  console.log("This is a profile presence",tempPresence)
-  setPresence(tempPresence?.graphClientMessage.availability)
-
+  const getProfileIN=async(teamsUserCredential)=>{
+    const tempPresence= await getprofile(teamsUserCredential)
+    console.log("This is a profile presence---",tempPresence)
+    setPresence(tempPresence?.graphClientMessage?.availability)
  } 
 
   // console.log(
@@ -150,111 +148,116 @@ const settingSlider = {
     app.initialize().then(() => {
       // Get our frameContext from context of our app in Teams
       app.getContext().then(async (context) => {
-        const userDispayName = await teamsUserCredential.getUserInfo();
-        // console.log(
-        //   "This is a context in main tab -----------??????",
-        //   await context
-        // );
-        const loginInfo = context.user;
-        setUserName(userDispayName?.displayName);
-        const tanentUrl = context.sharePointSite.teamSiteDomain;
-        console.log("This is sharepoint tannet url", tanentUrl);
-
-        setLoginUser(context.user);
-        const obj = {
-          siteName: "Teams_Site",
-          listTodo: "ToDoTask",
-          listTaskEntry: "To Do Task Entry",
-          tanentUrl,
-        };
-        console.log("This is a main begore obj", obj);
-        const res = await GetSite(teamsUserCredential, obj);
-        console.log("This is response from backend ", res);
-        const graphSiteid = res?.graphClientMessage;
-        const graphListToDoId = res?.listIdToDo;
-        const graphListToTaskEntryId = res?.listIdToDoEntry;
-        console.log(
-          "This is a respone of get siteId in main??????",
-          graphSiteid,
-          graphListToDoId,
-          graphListToTaskEntryId
-        );
-        setSiteId(graphSiteid);
-        setListToDo(graphListToDoId);
-        setListToDoTaskEntry(graphListToTaskEntryId);
-
-        console.log("this is again a response in a usedata", res);
-
-        console.log("this is a user context info", loginuser);
-        if (!teamsUserCredential) {
-          throw new Error("TeamsFx SDK is not initialized.");
-        }
-        if (needConsent) {
-          await teamsUserCredential.login(["User.Read"]);
-          setNeedConsent(false);
-        }
-        if (graphSiteid && graphListToDoId && graphListToTaskEntryId) {
-          try {
-            const obj = {
-              siteId: graphSiteid,
-              listid1: graphListToDoId,
-              listid2: graphListToTaskEntryId,
-            };
-            const functionRes = await callFunction(teamsUserCredential, obj);
-            // console.log("This is in export function data set", functionRes);
-            // setListData(functionRes.graphClientMessage.value);
-            setListTimeArry(functionRes.listArray.value);
-            setUserData(functionRes.userInfo.value);
-            setListData([]);
-            setCounttask({
-              CountOnGoing: 0,
-              CountUpcoming: 0,
-              CountCompleted: 0,
-            });
-            setUpComingData([])
-            functionRes.graphClientMessage.value?.sort((a,b)=>{return  new Date(b.lastModifiedDateTime) - new Date(a.lastModifiedDateTime)}).map((val) => {
+        if (teamsUserCredential){
+          console.log("THis is a teams user caditional",teamsUserCredential)
+          const userDispayName = await teamsUserCredential?.getUserInfo();
+          // console.log(
+          //   "This is a context in main tab -----------??????",
+          //   await context
+          // );
+          const loginInfo = context.user;
+          setUserName(userDispayName?.displayName);
+          const tanentUrl = context.sharePointSite.teamSiteDomain;
+          console.log("This is sharepoint tannet url", tanentUrl);
+  
+          setLoginUser(context.user);
+          const obj = {
+            siteName: "Teams_Site",
+            listTodo: "ToDoTask",
+            listTaskEntry: "To Do Task Entry",
+            tanentUrl,
+          };
+          console.log("This is a main begore obj", obj);
+          const res = await GetSite(teamsUserCredential, obj);
+          console.log("This is response from backend ", res);
+          const graphSiteid = res?.graphClientMessage;
+          const graphListToDoId = res?.listIdToDo;
+          const graphListToTaskEntryId = res?.listIdToDoEntry;
+          console.log(
+            "This is a respone of get siteId in main??????",
+            graphSiteid,
+            graphListToDoId,
+            graphListToTaskEntryId
+          );
+          setSiteId(graphSiteid);
+          setListToDo(graphListToDoId);
+          setListToDoTaskEntry(graphListToTaskEntryId);
+  
+          console.log("this is again a response in a usedata", res);
+  
+          console.log("this is a user context info", loginuser);
+          if (!teamsUserCredential) {
+            throw new Error("TeamsFx SDK is not initialized.");
+          }
+          if (needConsent) {
+            await teamsUserCredential.login(["User.Read"]);
+            setNeedConsent(false);
+          }
+          if (graphSiteid && graphListToDoId && graphListToTaskEntryId) {
+            try {
+              const obj = {
+                siteId: graphSiteid,
+                listid1: graphListToDoId,
+                listid2: graphListToTaskEntryId,
+              };
+              const functionRes = await callFunction(teamsUserCredential, obj);
+              // console.log("This is in export function data set", functionRes);
+              // setListData(functionRes.graphClientMessage.value);
+              setListTimeArry(functionRes.listArray.value);
+              setUserData(functionRes.userInfo.value);
+              setListData([]);
+              setCounttask({
+                CountOnGoing: 0,
+                CountUpcoming: 0,
+                CountCompleted: 0,
+              });
+              setUpComingData([])
+              functionRes.graphClientMessage.value?.sort((a,b)=>{return  new Date(b.lastModifiedDateTime) - new Date(a.lastModifiedDateTime)}).map((val) => {
+                if (
+                  val.createdBy.user?.email === loginInfo?.userPrincipalName ||
+                  val.fields?.ReviewerMail === loginInfo?.userPrincipalName
+                ) {
+                  
+                  setListData((prev) => [...prev, val]);
+                  if (
+                    new Date(val.fields?.StartDate) <= new Date() &&
+                    val.fields.Status !== "Completed"
+                  ) {
+                    setCounttask((prevObj) => ({
+                      ...prevObj,
+                      CountOnGoing: prevObj["CountOnGoing"] + 1,
+                    }));
+                  }
+                  if (
+                    val?.fields.Status !== "Completed" &&
+                    new Date(val.fields?.StartDate) > new Date()
+                  ) {
+                    setCounttask((prevObj) => ({
+                      ...prevObj,
+                      CountUpcoming: prevObj["CountUpcoming"] + 1,
+                    }));
+                    setUpComingData((prev)=>[...prev,val])
+                  }
+                }
+              });
+              setCheckData(false);
+              // console.log(
+              //   "This is count ongoing in map function",
+              //   countTask.CountOnGoing
+              // );
+  
+              return functionRes.graphClientMessage.value;
+            } catch (error) {
               if (
-                val.createdBy.user?.email === loginInfo?.userPrincipalName ||
-                val.fields?.ReviewerMail === loginInfo?.userPrincipalName
+                error.message.includes("The application may not be authorized.")
               ) {
-                
-                setListData((prev) => [...prev, val]);
-                if (
-                  new Date(val.fields?.StartDate) <= new Date() &&
-                  val.fields.Status !== "Completed"
-                ) {
-                  setCounttask((prevObj) => ({
-                    ...prevObj,
-                    CountOnGoing: prevObj["CountOnGoing"] + 1,
-                  }));
-                }
-                if (
-                  val?.fields.Status !== "Completed" &&
-                  new Date(val.fields?.StartDate) > new Date()
-                ) {
-                  setCounttask((prevObj) => ({
-                    ...prevObj,
-                    CountUpcoming: prevObj["CountUpcoming"] + 1,
-                  }));
-                  setUpComingData((prev)=>[...prev,val])
-                }
+                setNeedConsent(true);
               }
-            });
-            setCheckData(false);
-            // console.log(
-            //   "This is count ongoing in map function",
-            //   countTask.CountOnGoing
-            // );
-
-            return functionRes.graphClientMessage.value;
-          } catch (error) {
-            if (
-              error.message.includes("The application may not be authorized.")
-            ) {
-              setNeedConsent(true);
             }
           }
+          
         }
+       
       })
     })
   }); 

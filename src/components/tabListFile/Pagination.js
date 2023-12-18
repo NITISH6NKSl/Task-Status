@@ -1,5 +1,5 @@
 import { Button,Dropdown,Option, Tooltip } from "@fluentui/react-components";
-import {ArrowNext16Regular,ArrowPrevious16Regular} from "@fluentui/react-icons";
+import {ArrowNext24Regular,ArrowPrevious24Regular,IosArrowRtl24Regular,IosArrow24Regular,IosArrowLtr24Regular} from "@fluentui/react-icons";
 import { useState,useEffect } from "react";
 
 const NumberTaskArray=[1,2,3,4,5,20]
@@ -55,26 +55,33 @@ return (<>
         style={{ display: "flex", justifyContent: "center",columnGap: "2vw",paddingBottom:"4vh" }}
       >
         <div style={{display:"flex",columnGap: "0.5vw"}}>
+          <Tooltip content="First">
             <Button
-            size="small"
-            appearance="subtle"
-            disabled={props?.pages===firstPage?true:false}
-            
-            onClick={()=>{
-                props.setPages(firstPage)
-                console.log("This is to check click",firstPage)
-                }}>
-                First
-            </Button>
-            <Button
-            size="small"
-              disabled={props?.pages <= 1}
-              onClick={(e) => {
-                selectPagehandler(e, props?.pages - 1);
-              }}
-              appearance="primary"
-              icon={<ArrowPrevious16Regular/>}
-            />
+              size="small"
+              appearance="subtle"
+              disabled={props?.pages===firstPage?true:false}
+              icon={<ArrowPrevious24Regular/>}
+              onClick={()=>{
+                  props.setPages(firstPage)
+                  console.log("This is to check click",firstPage)
+                  }}>
+                  
+              </Button>
+          </Tooltip>
+          
+            <Tooltip content="Prev"> 
+              <Button
+              size="small"
+                disabled={props?.pages <= 1}
+                onClick={(e) => {
+                  selectPagehandler(e, props?.pages - 1);
+                }}
+                appearance="subtle"
+                iconPosition="after"
+                icon={<IosArrowLtr24Regular/>}
+              />
+            </Tooltip>
+           
               
             
         </div>
@@ -116,22 +123,29 @@ return (<>
           </>
         </div>
             <div style={{display:"flex",columnGap: "0.5vw"}}>
-                <Button
-                size="small"
-                disabled={Math.ceil(props?.selectedData.length / props?.numberOfTask) <= props?.pages}
-                onClick={(e) => {
-                    selectPagehandler(e, props?.pages + 1);
-                }}
-                appearance="primary"
-                icon={<ArrowNext16Regular/>}
+              <Tooltip content="Next">
+              <Button
+                  size="small"
+                  disabled={Math.ceil(props?.selectedData.length / props?.numberOfTask) <= props?.pages}
+                  onClick={(e) => {
+                      selectPagehandler(e, props?.pages + 1);
+                  }}
+                  appearance="subtle"
+                  iconPosition="center"
+                  icon={<IosArrowRtl24Regular/>}
                 />
-                <Button
-                disabled={props?.pages===lastPage?true:false}
-                appearance="subtle"
-                size="small"
-                onClick={()=>{props?.setPages(lastPage)}}
-                >Last
-                </Button>
+
+              </Tooltip>
+                <Tooltip content="Last">
+                  <Button
+                  disabled={props?.pages===lastPage?true:false}
+                  appearance="subtle"
+                  size="small"
+                  onClick={()=>{props?.setPages(lastPage)}}
+                  icon={<ArrowNext24Regular/>}
+                  >
+                  </Button>
+                </Tooltip>  
             </div>
       </div>
     )}
