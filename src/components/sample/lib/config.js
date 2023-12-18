@@ -1,7 +1,7 @@
 const config = {
   initiateLoginEndpoint: process.env.REACT_APP_START_LOGIN_PAGE_URL,
   clientId: process.env.REACT_APP_CLIENT_ID,
-  apiEndpoint:'https://nice-model-flounder.ngrok-free.app',
+  apiEndpoint: process.env.REACT_APP_FUNC_ENDPOINT,
   apiName: process.env.REACT_APP_FUNC_NAME,
   teamsAppId: process.env.REACT_APP_TEAMS_APP_ID,
 };

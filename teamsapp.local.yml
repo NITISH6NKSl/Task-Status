@@ -44,10 +44,10 @@ provision:
   - uses: script
     with:
       run:
-        echo "::set-teamsfx-env TAB_DOMAIN=65800698fcc4911267017d2d--tangerine-conkies-6295ed.netlify.app";
-        echo "::set-teamsfx-env TAB_ENDPOINT=https://65800698fcc4911267017d2d--tangerine-conkies-6295ed.netlify.app";
+        echo "::set-teamsfx-env TAB_DOMAIN=localhost:53000";
+        echo "::set-teamsfx-env TAB_ENDPOINT=https://localhost:53000";
         echo "::set-teamsfx-env FUNC_NAME=getUserProfile";
-        echo "::set-teamsfx-env FUNC_ENDPOINT=https://nice-model-flounder.ngrok-free.app";
+        echo "::set-teamsfx-env FUNC_ENDPOINT=http://localhost:7071";
       # run:
       #   echo "::set-teamsfx-env TAB_DOMAIN=localhost:53000";
       #   echo "::set-teamsfx-env TAB_ENDPOINT=https://localhost:53000";
