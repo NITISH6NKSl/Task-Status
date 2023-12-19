@@ -112,7 +112,7 @@ module.exports = async function (context, req, teamsfxContext) {
     //   "Checking in GetNottification-----------",
     //   context.bindings.req.body
     // );
-    const userId = "1cc562b8-c0cd-472b-b5be-451d2758ed86";
+    const userId =req.body.reviewerUserId;
     const client = await graphClient
       .api(`/users/${userId}/teamwork/sendActivityNotification`)
       .post(context.bindings.req.body.sendActivityNotification);

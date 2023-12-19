@@ -151,10 +151,10 @@ const settingSlider = {
         if (teamsUserCredential){
           console.log("THis is a teams user caditional",teamsUserCredential)
           const userDispayName = await teamsUserCredential?.getUserInfo();
-          // console.log(
-          //   "This is a context in main tab -----------??????",
-          //   await context
-          // );
+          console.log(
+            "This is a context in main tab -----------??????",
+             context
+          );
           const loginInfo = context.user;
           setUserName(userDispayName?.displayName);
           const tanentUrl = context.sharePointSite.teamSiteDomain;
@@ -326,6 +326,7 @@ const settingSlider = {
         theme,
         themeString,
         teamsUserCredential,
+        loginuser,
         loading,
         userData,
         listTimeArry,

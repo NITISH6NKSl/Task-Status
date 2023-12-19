@@ -8,7 +8,7 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Start Date",
+          "name": "StartDate",
           "dateTime": {
             "displayAs": "default",
             "format": "date"
@@ -19,7 +19,7 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "End Date",
+          "name": "EndDate",
           "dateTime": {
             "displayAs": "default",
             "format": "date"
@@ -30,12 +30,12 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Actual Hours",
+          "name": "Status",
           "text": {
             "allowMultipleLines": false,
             "appendChangesToExistingText": false,
             "linesForEditing": 0,
-            "maxLength": 55
+            "maxLength":55
           }
         },
         {
@@ -58,17 +58,17 @@
           "indexed": false,
           "name": "Descriptions",
           "text": {
-            "allowMultipleLines": false,
+            "allowMultipleLines": true,
             "appendChangesToExistingText": false,
             "linesForEditing": 0
           }
         },
         {
-          "description": "Reviwer mail ",
+          "description": "Reviwer mail",
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Reviewer Mail",
+          "name": "ReviewerMail",
           "text": {
             "allowMultipleLines": false,
             "appendChangesToExistingText": false,
@@ -81,7 +81,7 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Reviewer Display Name",
+          "name": "ReviewerDipalyName",
           "text": {
             "allowMultipleLines": false,
             "appendChangesToExistingText": false,
@@ -94,7 +94,7 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Actual Start Date",
+          "name": "ActualStartDate",
           "dateTime": {
             "displayAs": "default",
             "format": "date"
@@ -105,13 +105,21 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Reviewer Id",
+          "name": "ReviewerId",
           "text": {
             "allowMultipleLines": false,
             "appendChangesToExistingText": false,
             "linesForEditing": 0,
             "maxLength": 255
           }
+        },
+        {
+          "name":"ActualHours",
+          "number": { }
+        },
+        {
+          "name":"EstimatedHours",
+          "number": { }
         }
       ],
       "list": {
@@ -126,7 +134,7 @@
           "enforceUniqueValues": false,
           "hidden": false,
           "indexed": false,
-          "name": "Entry Exit Time",
+          "name": "EntryExitTime",
           "required": true,
           "dateTime": {
             "displayAs": "default",

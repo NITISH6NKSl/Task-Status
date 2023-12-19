@@ -47,7 +47,12 @@
         "type": "taskCompleted",
         "description": "Task Completed Activity",
         "templateText": "{actor} Completed task  {taskName} for you"
-      }
+      },
+      {
+        "type": "taskAdded",
+        "description": "Task Added Activity",
+        "templateText": "{actor} Added task  {taskName} Assigned To you"
+    }
     ]
   },
   "authorization": {

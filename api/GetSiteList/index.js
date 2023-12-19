@@ -144,7 +144,7 @@ module.exports = async function (context, req, teamsfxContext) {
         const teamsObj = {
           "template@odata.bind":
             "https://graph.microsoft.com/v1.0/teamsTemplates('standard')",
-          displayName: "Teams_Site",
+          displayName: "Teams_SiteFinalAPP",
           description: "My Sample Team’s Description",
         };
         console.log("This is else suite ----->>>>>>????");
